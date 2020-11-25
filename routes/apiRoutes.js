@@ -1,48 +1,60 @@
 
 // DEPENDANCIES 
 
+const router = require('express').Router();
 const fs = require('fs');
 const path = require('path');
-const data = require(path.join(__dirname, '../db/db.json'));
+const db = require(path.join(__dirname, '../db/db.json'));
+const methodOverride = require('method-override');
 
+// I also cleaned up my code a bit.  Upon doing some research I found that I like the Router method more than the module.exports function.
+// It feels cleaner especially when considering React usage, as it appears that Router would be better for a multiple module application.
 // we are going to be making API calls from this file and storing into the db.json
-module.exports = function (app) {
-  app.get('/api/notes', (req, res) => {
-
-    res.json(data);
+  router.get('/notes', (req, res) => {
+    res.json(db);
   });
 
-  app.post('/api/notes', (req, res) => {
-    const note = req.body;
 
+  router.post('/notes', (req, res) => {
+    const note = req.body;
+    // creates a random id for the note
     note.id = Math.ceil(Math.random() * 999);
 
-    data.push(note);
+    db.push(note);
     res.json(note);
     // writes the pushed object into the db.json
-    fs.writeFileSync(path.join(__dirname, '../db/db.json'), JSON.stringify(data), null, 2);
+    fs.writeFileSync(path.join(__dirname, '../db/db.json'), JSON.stringify(db), null, 2);
   });
 
+  router.put('/notes/:id', (req, res) => {
+    const note = req.body;
+
+    if (!note) return res.status(404).json({});
+    
+    note.title = req.body.title
+    res.json(note)
+  })
 
 
-  app.delete('/api/notes/:id', (req, res) => {
+  router.delete('/notes/:id', (req, res) => {
     const locateId = parseInt(req.params.id);
 
     function locate() {
 
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].id === locateId) {
-          data.splice(i, 1);
+      for (let i = 0; i < db.length; i++) {
+        if (db[i].id === locateId) {
+          db.splice(i, 1);
           // writes the pushed object into the db.json
-          fs.writeFileSync(path.join(__dirname, '../db/db.json'), JSON.stringify(data), null, 2);
+          fs.writeFileSync(path.join(__dirname, '../db/db.json'), JSON.stringify(db), null, 2);
 
-          res.json(data);
+          res.json(db);
         }
       }
     }
     locate();
   });
-};
+
+  module.exports = router;
 
 
 

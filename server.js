@@ -1,14 +1,10 @@
 
 // Dependency Express and creating an Express server.
-
-const http = require("http");
-const fs = require("fs");
-const path = require("path");
 const express = require("express"); 
+const apiRoutes = require("./routes/apiRoutes");
+const htmlRoutes = require("./routes/htmlRoutes");
 const app = express();
-
-
-// Sets an initial port
+// Sets an to 3306 local
 const PORT = process.env.PORT || 3305;
 
 // App.use allows us to use the express NPM package which handles server
@@ -18,11 +14,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Routing locations
-require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
+
+app.use('/api', apiRoutes);
+app.use('/', htmlRoutes);
 
 
-
-// Server startup through port 3000
+// Listening through server 3305
 app.listen(PORT, () => console.log(`Listening on PORT: ${PORT}`));
