@@ -41,6 +41,11 @@ N/A
 If you would like to contribute to this project, you can either clone the project, fork the project, 
 or email me a wmwassmann@hotmail.com for permissions. 
 
+# Future 
+
+- Working on getting an edit button working.  I'm pretty close to figuring it out for pure javascript and jQuery.  I could probably do it with React using setItem, event.target.value and the like, but I want to keep it in the spirit of the homework. We used a simple input editor that stored the name value to localStorage in RPG Adventurer's Academy 
+
+
 # Questions
 Ask questions through github.
 
