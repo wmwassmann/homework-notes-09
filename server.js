@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3305;
 // and JavaScript files.
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static('docs'));
 
 
 app.use('/api', apiRoutes);

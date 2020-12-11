@@ -9,13 +9,13 @@ const router = require('express').Router();
 
 router.get("/notes", (req, res, next) => {
   res.sendFile(path.join(
-    __dirname, "../public/notes.html"
+    __dirname, "../docs/notes.html"
     ));
 });
 
 router.get("*", (req, res, next) => {
   res.sendFile(path.join(
-    __dirname, "../public/index.html"
+    __dirname, "../docs/index.html"
     ));
 });
 
