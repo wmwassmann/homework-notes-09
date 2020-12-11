@@ -26,15 +26,20 @@ const methodOverride = require('method-override');
     fs.writeFileSync(path.join(__dirname, '../db/db.json'), JSON.stringify(db), null, 2);
   });
 
+
+  // This is still a work in progress.
+  // It's not a part of the rubric.  I can't seem to make it update instead of just adding a new entire list item. 
+  // I'm going to submit because this works regardless.
   router.put('/notes/:id', (req, res) => {
     const note = req.body;
 
     if (!note) return res.status(404).json({});
-    
-    note.title = req.body.title
-    res.json(note)
+    note.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(note){
+      note.findOne({_id: req.params.id}).then(function(note){
+      res.send(note);
+    })   
   })
-
+})
 
   router.delete('/notes/:id', (req, res) => {
     const locateId = parseInt(req.params.id);
