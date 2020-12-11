@@ -184,13 +184,13 @@ const renderNoteList = (notes) => {
     $li.append($span);
 
     if (withButton) {
-      const $editBtn = $(
-        "<i class='fas fa-edit float-left text-edit edit-note'>"
-      ); 
+      // const $editBtn = $(
+      //   "<i class='fas fa-edit float-left text-edit edit-note'>"
+      // ); 
       const $delBtn = $(
         "<i class='fas fa-times float-right text-edit delete-note'>"
       )
-      $li.append($editBtn, $delBtn);   
+      $li.append($delBtn);   
     }
     return $li;
   }; 
