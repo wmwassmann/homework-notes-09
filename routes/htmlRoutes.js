@@ -9,7 +9,7 @@ const router = require('express').Router();
 
 router.get("/notes", (req, res, next) => {
   res.sendFile(path.join(
-    __dirname, "..homework-notes-09/docs/notes.html"
+    __dirname, "../homework-notes-09/docs/notes.html"
     ));
 });
 
